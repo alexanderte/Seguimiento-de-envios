@@ -1,4 +1,5 @@
 import uuid
+import os
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
@@ -27,7 +28,10 @@ from werkzeug.security import check_password_hash
 
 app = Flask(__name__)
 
-app.config["SECRET_KEY"] = "clave-temporal-desarrollo-2026"
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+
+if not app.config["SECRET_KEY"]:
+    raise RuntimeError("Definí la variable de entorno SECRET_KEY antes de iniciar la aplicación.")
 
 init_db()
 
