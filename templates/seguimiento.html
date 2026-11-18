@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguimiento de envíos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body>
+    <main class="contenedor-form">
+        <h1>Seguimiento de envíos</h1>
+
+        <p>Ingresá tu código para consultar el estado de tu envío.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <form action="{{ url_for('seguimiento') }}" method="POST">
+
+            <input
+                type="text"
+                name="codigo"
+                placeholder="Ejemplo: ENV-7A3E0A4196"
+                required
+            >
+
+            <button type="submit">Consultar envío</button>
+
+        </form>
+
+        {% if envio %}
+
+            <hr>
+
+            <h2>Información del envío</h2>
+
+            <p><strong>Código:</strong> {{ envio.codigo_seguimiento }}</p>
+            <p><strong>Destinatario:</strong> {{ envio.destinatario }}</p>
+            <p><strong>Estado actual:</strong> {{ envio.estado_actual }}</p>
+            <p><strong>Fecha de registro:</strong> {{ envio.fecha_registro }}</p>
+
+            <h3>Historial de movimientos</h3>
+
+            {% if historial %}
+
+                <table border="1" cellpadding="8">
+
+                    <thead>
+                        <tr>
+                            <th>Estado</th>
+                            <th>Observación</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for movimiento in historial %}
+                            <tr>
+                                <td>{{ movimiento.estado }}</td>
+                                <td>{{ movimiento.observacion }}</td>
+                                <td>{{ movimiento.fecha_actualizacion }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+
+            {% else %}
+
+                <p>No hay movimientos registrados.</p>
+
+            {% endif %}
+
+        {% endif %}
+    </main>
+</body>
+</html>

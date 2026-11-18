@@ -1,0 +1,180 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f9;
+    color: #263238;
+}
+
+h1, h2, h3 {
+    color: #1f3a5f;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+a {
+    color: #2563a6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2563a6;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #194d80;
+}
+
+input, select {
+    padding: 9px;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+input:focus, select:focus {
+    outline: 2px solid #93c5fd;
+    border-color: #2563a6;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #dbe2ea;
+    text-align: left;
+}
+
+th {
+    background-color: #e8eef5;
+    color: #1f3a5f;
+}
+
+tr:hover {
+    background-color: #f8fafc;
+}
+
+details {
+    min-width: 180px;
+}
+
+summary {
+    color: #2563a6;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+details table {
+    min-width: 350px;
+}
+
+form {
+    margin: 15px 0;
+}
+
+form input, form select {
+    margin: 4px;
+}
+
+p {
+    line-height: 1.5;
+}
+
+hr {
+    margin: 25px 0;
+    border: none;
+    border-top: 1px solid #dbe2ea;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    form input, form select, form button {
+        margin: 5px 0;
+    }
+}
+
+
+/* Contenedores principales */
+.contenedor {
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Formularios de registro y seguimiento */
+.contenedor-form {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Login */
+.contenedor-login {
+    max-width: 440px;
+    margin: 10vh auto;
+    padding: 35px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+}
+
+.contenedor-login h1,
+.contenedor-login h2 {
+    text-align: center;
+}
+
+.contenedor-login button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.contenedor-login input {
+    width: 100%;
+    margin-top: 6px;
+}
+
+@media (max-width: 768px) {
+    .contenedor,
+    .contenedor-form,
+    .contenedor-login {
+        margin: 15px;
+        padding: 20px;
+    }
+}

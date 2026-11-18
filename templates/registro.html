@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar envío</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body>
+    <main class="contenedor-form">
+        <h1>Registrar nuevo envío</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <form action="{{ url_for('registrar_envio') }}" method="POST">
+
+            <p>
+                <label for="destinatario">Destinatario:</label><br>
+                <input
+                    type="text"
+                    id="destinatario"
+                    name="destinatario"
+                    maxlength="100"
+                    required
+                >
+            </p>
+
+            <p>
+                <label for="direccion">Dirección:</label><br>
+                <input
+                    type="text"
+                    id="direccion"
+                    name="direccion"
+                    maxlength="200"
+                    required
+                >
+            </p>
+
+            <p>
+                <label for="descripcion">Descripción:</label><br>
+                <input
+                    type="text"
+                    id="descripcion"
+                    name="descripcion"
+                    maxlength="300"
+                >
+            </p>
+
+            <button type="submit">Registrar envío</button>
+
+        </form>
+
+        <p>
+            <a href="{{ url_for('dashboard') }}">Volver al panel administrativo</a>
+        </p>
+    </main>
+</body>
+</html>

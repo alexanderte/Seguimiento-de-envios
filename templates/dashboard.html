@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel administrativo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body>
+    <main class="contenedor">
+        <h1>Panel administrativo</h1>
+
+        <p>Bienvenido, {{ username }}</p>
+
+        <h2>Gestión de envíos</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <a href="{{ url_for('registrar_envio') }}">
+            Registrar nuevo envío
+        </a>
+
+        <p>
+            <a href="{{ url_for('seguimiento') }}">
+                Consultar seguimiento público
+            </a>
+        </p>
+
+        <h3>Envíos registrados</h3>
+
+        {% if envios %}
+
+            <table border="1" cellpadding="8">
+
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Destinatario</th>
+                        <th>Dirección</th>
+                        <th>Estado</th>
+                        <th>Fecha de registro</th>
+                        <th>Historial</th>
+                        <th>Actualizar estado</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for envio in envios %}
+                        <tr>
+                            <td>{{ envio.codigo_seguimiento }}</td>
+                            <td>{{ envio.destinatario }}</td>
+                            <td>{{ envio.direccion }}</td>
+                            <td>{{ envio.estado_actual }}</td>
+                            <td>{{ envio.fecha_registro }}</td>
+
+                            <td>
+                                <details>
+                                    <summary>Ver historial ({{ envio.historial|length }})</summary>
+
+                                    <table border="1" cellpadding="5">
+                                        <thead>
+                                            <tr>
+                                                <th>Estado</th>
+                                                <th>Observación</th>
+                                                <th>Fecha de actualización</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {% for movimiento in envio.historial %}
+                                                <tr>
+                                                    <td>{{ movimiento.estado }}</td>
+                                                    <td>{{ movimiento.observacion }}</td>
+                                                    <td>{{ movimiento.fecha_actualizacion }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </details>
+                            </td>
+
+                            <td>
+                                <form action="{{ url_for('actualizar_estado', envio_id=envio.id) }}" method="POST">
+
+                                    <select name="estado" required>
+                                        <option value="Pendiente"
+                                            {% if envio.estado_actual == "Pendiente" %}selected{% endif %}>
+                                            Pendiente
+                                        </option>
+
+                                        <option value="En preparación"
+                                            {% if envio.estado_actual == "En preparación" %}selected{% endif %}>
+                                            En preparación
+                                        </option>
+
+                                        <option value="En camino"
+                                            {% if envio.estado_actual == "En camino" %}selected{% endif %}>
+                                            En camino
+                                        </option>
+
+                                        <option value="Entregado"
+                                            {% if envio.estado_actual == "Entregado" %}selected{% endif %}>
+                                            Entregado
+                                        </option>
+                                    </select>
+
+                                    <input
+                                        type="text"
+                                        name="observacion"
+                                        placeholder="Observación del cambio"
+                                        maxlength="300"
+                                        required
+                                    >
+
+                                    <button type="submit">Actualizar</button>
+
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+        {% else %}
+
+            <p>Todavía no hay envíos registrados.</p>
+
+        {% endif %}
+
+        <br>
+
+        <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+    </main>
+</body>
+</html>

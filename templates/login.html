@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body >
+     <main class="contenedor-login">
+        <h1>Sistema de seguimiento de envíos</h1>
+
+        <h2>Acceso administrativo</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <form action="{{ url_for('login') }}" method="POST">
+
+            <p>
+                <label for="username">Usuario:</label><br>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    required
+                >
+            </p>
+
+            <p>
+                <label for="password">Contraseña:</label><br>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    required
+                >
+            </p>
+
+            <button type="submit">Ingresar</button>
+
+        </form>
+
+        <hr>
+
+        <p>
+            ¿Querés consultar un envío?
+            <a href="{{ url_for('seguimiento') }}">Ingresá aquí</a>
+        </p>
+    </main>
+</body>
+</html>
